@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTP VERIFICATION</title>
+     <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+            outline: none;
+            box-sizing: border-box;
+            font-family:calibri ;
+        }
+        body{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            width: 100%;
+            padding: 10px 20px;
+            background: linear-gradient(30deg,#bfc5ff,#ffe1e1);
+        }
+        .con{
+            width: 100%;
+            background: #fff;
+            padding: 20px 10px;
+            border-radius: 4px;
+            box-shadow: 2px 2px 8px #B3A5ff;
+            display: flex0
+            flex-direction column;
+            gap: 30px;
+        }
+        .header{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+        }
+        .header h1{
+            color: grey;
+        }
+        .input{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .input p{
+            font-size: 15px;
+            font-weight: 500;
+            color: grey;
+            margin: 5px 0;
+        }
+        .input b{
+            font-size: 14.5px;
+            margin: 0 0 20px 0;
+        }
+        .btn{
+            width: 100%;
+            text-align: center;
+        }
+        .btn button{
+            width: 100%;
+            color: #fff;
+            font-size: 17px;
+            font-weight: 700;
+            border: none;
+            height: 40px;
+            cursor: pointer;
+            border-radius: 4px;
+            pointer-events: none;
+            background: #6e93f7;
+            transition: all 0.2s ease;
+        }
+        button.active{
+            background: #4070f4;
+            pointer-events: auto;
+        }
+        form button:hover{
+            background: #0e4bf1;
+        }
+        .inputs{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: row;
+            column-gap: 10px;
+        }
+        .inputs input{
+            height: 45px;
+            width: 42px;
+            border-radius: 6px;
+            outline: none;
+            font-size: 1.125rem;
+            font-weight: 900;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        .inputs input:focus{
+            box-shadow: 0 1px 0 rgba(0,0,0,1);
+        }
+        .inputs input::-webkit-inner-spin-button,
+        .inputs input::-webkit-outer-spin-button{
+            display: none;
+        }
+     </style>
+</head>
+<body>
+   <div class="con">
+    <section class="header">
+        <h1>verification</h1>
+        <img src="icon.jpeg" width="100px">
+    </section>
+    <section class="input">
+        <p>Enter the otp you received at</p>
+        <b>+91 ********39</b>
+        <div class="inputs">
+            <input type="number"/>
+            <input type="number" disabled/>
+            <input type="number" disabled/>
+            <input type="number" disabled/>
+        </div>
+    </section>
+    <section class="btn">
+        <button disabled>verify</button>
+    </section>
+   </div> 
+   <script>
+    const inputs= document.querySelectorAll("input"),
+    button=document.querySelector("button");
+    inputs.forEach((input,index1)=>{
+        input.addEventListener("keyup",(e)=>{
+            const currentInput=input, nextInput=input.nextElementSibling,
+            prevInput=input.previousElementSibling;
+            if(currentInput.value.length>1){
+                currentInput.value="";
+                return;
+            }
+            if(nextInput && nextInput.hasAttribute("disabled")&& currentInput.value !==""){
+                nextInput.removeAttribute("disabled");
+                nextInput.focus();
+            }
+            if(e.key==="Backspace"){
+                inputs.forEach((input,index2)=>{
+                    if(index1 <= index2 && prevInput){
+                        input.setAttribute("disabled",true);
+                        input.value= "";
+                        prevInput.focus();
+                    }
+                });
+            }
+            if(!inputs[3].disabled && inputs[3].value !== ""){
+                button.classList.add("active");
+                return;
+            }
+            button.classList.remove("active");
+        });
+    });
+    window.addEventListener("load",()=>
+    inputs[0].focus());
+   </script>
+</body>
+</html>
